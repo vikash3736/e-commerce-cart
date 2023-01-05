@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useDispatch } from 'react-redux';
 import CardData from './CardData.js';
+import {ADD} from '../redux/actions/action.js';
 
 const Cards = () => {
+
+  const dispatch = useDispatch();
+
+  const send = (e)=>{
+    // console.log(e);
+    dispatch(ADD(e));
+  }
 
   const [data, setData] = useState(CardData);
 
@@ -22,7 +31,7 @@ const Cards = () => {
                     <Card.Text>
                       Price : ₹ {element.price}
                     </Card.Text>
-                    <Button variant="primary" style={{width:"100%"}}>Add To Cart</Button>
+                    <Button onClick={()=>send(element)} variant="primary" style={{width:"100%"}}>Add To Cart</Button>
                   </Card.Body>
                 </Card>
               </>

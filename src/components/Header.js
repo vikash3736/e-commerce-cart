@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 import Badge from '@mui/material/Badge';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
+import { useSelector } from 'react-redux';
 // import MenuItem from '@mui/material/MenuItem';
 
 const Header = () => {
+
+    const navigate = useNavigate();
+
+    const getdata = useSelector((state)=>state.cartReducer.carts);
+    console.log(getdata)
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -25,9 +32,10 @@ const Header = () => {
                     <NavLink to="/" className="text-decoration-none text-light mx-3">E-Comm</NavLink>
                     <Nav className="me-auto">
                         <NavLink to="/" className="text-decoration-none text-light mx-3">Home</NavLink>
-                        <NavLink to="/cart" className="text-decoration-none text-light mx-3">Add To Cart</NavLink>
+                        <NavLink to="/cart" className="text-decoration-none text-light mx-3">Cart Details</NavLink>
+                        <NavLink to="/addtocart" className="text-decoration-none text-light mx-3">Add To Cart</NavLink>
                     </Nav>
-                    <Badge badgeContent={4} color="warning"
+                    <Badge badgeContent={getdata.length} color="warning"
                         id="basic-button"
                         aria-controls={open ? 'basic-menu' : undefined}
                         aria-haspopup="true"
@@ -44,12 +52,21 @@ const Header = () => {
                     MenuListProps={{
                         'aria-labelledby': 'basic-button',
                     }}
-                >
-                    <div className='d-flex justify-content-center align-items-center' style={{width:"15vw",position:"relative",padding:"3px"}}>
+                    >
+
+                    {
+                        getdata.length ? 
+                        // navigate("cart")
+                        // <div>hello</div>
+                        <Button onClick={()=>navigate("cart")} variant="outline-primary">See All</Button>
+                        :
+                        <div className='d-flex justify-content-center align-items-center' style={{width:"15vw",position:"relative",padding:"3px"}}>
                         <i className='fas fa-close' style={{position:"absolute",top:9,right:20,fontSize:22,cursor:"pointer"}}
                         onClick={handleClose}></i>
                         <p style={{fontSize:20,color:"red"}}>Cart is Empty</p>
                     </div>
+                    }                
+                    
                 </Menu>
             </Navbar>
         </>
