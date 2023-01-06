@@ -55,7 +55,7 @@ const Header = () => {
                     {
                         getdata.length ? 
                         <div style={{width:"8vw"}} className="text-center">
-                            <NavLink to='/addtocart'>
+                            <NavLink to='/addtocart' onClick={handleClose}>
                                 <Button variant="outline-primary">View Cart</Button>
                             </NavLink>
                         </div>
