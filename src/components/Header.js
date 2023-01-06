@@ -4,17 +4,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Badge from '@mui/material/Badge';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import { useSelector } from 'react-redux';
 // import MenuItem from '@mui/material/MenuItem';
 
 const Header = () => {
 
-    const navigate = useNavigate();
-
     const getdata = useSelector((state)=>state.cartReducer.carts);
-    console.log(getdata)
+    // console.log(getdata)
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -56,9 +54,11 @@ const Header = () => {
 
                     {
                         getdata.length ? 
-                        // navigate("cart")
-                        // <div>hello</div>
-                        <Button onClick={()=>navigate("cart")} variant="outline-primary">See All</Button>
+                        <div style={{width:"8vw"}} className="text-center">
+                            <NavLink to='/addtocart'>
+                                <Button variant="outline-primary">View Cart</Button>
+                            </NavLink>
+                        </div>
                         :
                         <div className='d-flex justify-content-center align-items-center' style={{width:"15vw",position:"relative",padding:"3px"}}>
                         <i className='fas fa-close' style={{position:"absolute",top:9,right:20,fontSize:22,cursor:"pointer"}}
