@@ -1,9 +1,16 @@
 import React, {useState} from 'react';
 import { Table } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import {REMOVE} from '../redux/actions/action.js';
 
 const AddToCart = () => {
+
+  const dispatch = useDispatch();
+
+  const remove =(id)=>{
+    dispatch(REMOVE(id));
+  }
 
   const getdata = useSelector((state) => state.cartReducer.carts);
   console.log(getdata);
@@ -33,7 +40,7 @@ const AddToCart = () => {
                         <p>{e.rname}</p>
                         <p>Price : {e.price}</p>
                         <p>Quantity : {e.qnty}</p>
-                        <p><i className='fas fa-trash text-danger' style={{ cursor: "pointer" }}></i></p>
+                        <p onClick={()=>remove(e.id)}><i className='fas fa-trash text-danger' style={{ cursor: "pointer" }}></i></p>
                       </td>
                     </tr>
                   </>

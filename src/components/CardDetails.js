@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'
-import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import {REMOVE} from '../redux/actions/action.js';
 
 const CardDetails = () => {
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const remove = (id)=>{
+    dispatch(REMOVE(id));
+    navigate('/addtocart');
+  }
 
   const [data, setData] = useState([]);
 
@@ -45,7 +55,7 @@ const CardDetails = () => {
                       <td>
                         <p><strong>Ratings : </strong><span className='bg-success text-light p-1'>{ele.rating}★</span></p>
                         <p><strong>Order Review : </strong>{ele.somedata}</p>
-                        <p><strong>Remove : </strong><i className='fas fa-trash text-danger' style={{ cursor: "pointer" }}></i></p>
+                        <p onClick={()=>remove(ele.id)}><strong>Remove : </strong><i className='fas fa-trash text-danger' style={{ cursor: "pointer" }}></i></p>
                       </td>
                     </tr>
                   </Table>
