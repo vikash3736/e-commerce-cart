@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {REMOVE} from '../redux/actions/action.js';
+import EmptyCart from './EmptyCart.js';
 
 const AddToCart = () => {
 
@@ -15,8 +16,24 @@ const AddToCart = () => {
   const getdata = useSelector((state) => state.cartReducer.carts);
   console.log(getdata);
 
+  const [price,setPrice] = useState(0);
+  console.log(price);
+
+  const total =() =>{
+    let price = 0;
+    getdata.map((ele,k)=>{
+      price = price + ele.price;
+    })
+    setPrice(price);
+  }
+
+  useEffect(()=>{
+    total();
+  },[total])
+
   return (
-    <>
+    <>{
+      getdata.length ?
       <div className='container mt-3'>
         <Table>
           <thead>
@@ -47,9 +64,14 @@ const AddToCart = () => {
                 )
               })
             }
+            <p className='text-center mt-3'>Total Price : <b>₹ {price}</b></p>
           </tbody>
         </Table>
       </div>
+       : 
+      <EmptyCart />
+    }
+      
 
     </>
   )
