@@ -11,3 +11,10 @@ export const REMOVE = (id) => {
         payload: id
     }
 }
+
+export const DECREASE = (item) => {
+    return{
+        type : 'DECREASE_CART',
+        payload: item
+    }
+}

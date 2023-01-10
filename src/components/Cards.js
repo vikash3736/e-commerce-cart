@@ -18,7 +18,7 @@ const Cards = () => {
 
   return (
     <div className='container mt-3'>
-      <h2 style={{textAlign:"center"}}>Add To Cart Project</h2>
+      {/* <h2 style={{textAlign:"center"}}>Add To Cart Project</h2> */}
       <div className='row d-flex justify-content-center align-items-center'>
         {
           data.map((element, id) => {

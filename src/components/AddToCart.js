@@ -22,7 +22,7 @@ const AddToCart = () => {
   const total =() =>{
     let price = 0;
     getdata.map((ele,k)=>{
-      price = price + ele.price;
+      price = price + ele.price * ele.qnty;
     })
     setPrice(price);
   }
