@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Table } from 'react-bootstrap'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Button, Table } from 'react-bootstrap'
+import { json, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import {REMOVE} from '../redux/actions/action.js';
 import {ADD, DECREASE} from '../redux/actions/action.js';
+import StripeCheckout from 'react-stripe-checkout';
 
 const CardDetails = () => {
 
@@ -42,6 +43,28 @@ const CardDetails = () => {
     compData();
   },[id]);
 
+  const makePayment = token =>{
+    const body = {
+      token,
+      product : data
+    };
+    const headers = {
+      "Content-Type":"application/json"
+    };
+
+    return fetch(`http://localhost:4000/payment`,{
+      method:"POST",
+      headers,
+      body: JSON.stringify(body)
+    })
+    .then(response=>{
+      console.log("RESPONSE",response);
+      const {status} = response;
+      console.log("STATUS",status);
+    })
+    .catch(err=> console.log(err));
+  }
+
   return (
     <div className='container mt-5'>
       {/* <h2 className='text-center'>Card Details Page</h2> */}
@@ -71,6 +94,9 @@ const CardDetails = () => {
                         <p><strong>Ratings : </strong><span className='bg-success text-light p-1'>{ele.rating}★</span></p>
                         <p><strong>Order Review : </strong>{ele.somedata}</p>
                         <p onClick={()=>remove(ele.id)}><strong>Remove : </strong><i className='fas fa-trash text-danger' style={{ cursor: "pointer" }}></i></p>
+                        <StripeCheckout stripeKey="pk_test_51MP6ZBSDouJ1T5G0Sbqm2wblfioZGMLFNjpen634jACDFFSIzd0VvzQg17GotNQND7iXa94tpsZnf3nVEJOUSXzN00F8gjbaNU" token={makePayment} amount={ele.price * ele.qnty * 100} name="Buy" onClick={()=>remove(ele.id)}>
+                          <Button className='btn-warning'>Buy Now</Button>
+                        </StripeCheckout>
                       </td>
                     </tr>
                   </Table>

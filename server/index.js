@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const uuid = require('uuid');
-const { default: Stripe } = require('stripe');
 
 // I have given secret key
 const stripe = require('stripe')("sk_test_51MP6ZBSDouJ1T5G0rAEWvvqFt4qhIpjk1U2kWwNO1lgEBQp1zrd0ZnuX1qTymGeaWvTMtkdItFGu0H1HxwPCHyRz00FpffcWBB");
@@ -30,7 +29,7 @@ app.post('/payment',(req,res) => {
     .then(customer =>{
         stripe.charges.create({
             amount: product.price * 100,
-            currency: "inr",
+            currency: "INR",
             customer:customer.id,
             receipt_email: token.email,
             description: `Purchase of ${product.name}`,
