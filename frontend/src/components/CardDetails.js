@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Table } from 'react-bootstrap'
-import { json, useNavigate, useParams } from 'react-router-dom'
+import { json, NavLink, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import {REMOVE} from '../redux/actions/action.js';
 import {ADD, DECREASE} from '../redux/actions/action.js';
@@ -72,11 +72,11 @@ const CardDetails = () => {
         data.map((ele) => {
           return (
             <>
-              <div key={ele.id} className='container mt-3 d-flex justify-content-center align-items-center shadow-lg p-3 mb-5 bg-white rounded'>
-                <div className='p-2'>
+              <div key={ele.id} className='container row mt-3 d-flex justify-content-center align-items-center shadow-lg p-3 mb-5 bg-white rounded'>
+                <div className='p-2 col-md-5'>
                   <img src={`${ele.imgdata}`} style={{ height: "45vh", width: "30vw" }} alt="" />
                 </div>
-                <div className='p-2'>
+                <div className='p-2 col-md-7'>
                   <Table>
                     <tr>
                       <td>
@@ -94,8 +94,8 @@ const CardDetails = () => {
                         <p><strong>Ratings : </strong><span className='bg-success text-light p-1'>{ele.rating}★</span></p>
                         <p><strong>Order Review : </strong>{ele.somedata}</p>
                         <p onClick={()=>remove(ele.id)}><strong>Remove : </strong><i className='fas fa-trash text-danger' style={{ cursor: "pointer" }}></i></p>
-                        <StripeCheckout stripeKey="pk_test_51MP6ZBSDouJ1T5G0Sbqm2wblfioZGMLFNjpen634jACDFFSIzd0VvzQg17GotNQND7iXa94tpsZnf3nVEJOUSXzN00F8gjbaNU" token={makePayment} amount={ele.price * ele.qnty * 100} name="Buy" onClick={()=>remove(ele.id)}>
-                          <Button className='btn-warning'>Buy Now</Button>
+                        <StripeCheckout stripeKey="pk_test_51MP6ZBSDouJ1T5G0Sbqm2wblfioZGMLFNjpen634jACDFFSIzd0VvzQg17GotNQND7iXa94tpsZnf3nVEJOUSXzN00F8gjbaNU" token={makePayment} shippingAddress billingAddress amount={ele.price * ele.qnty * 100} name="Buy">
+                          <Button className='btn-warning' onClick={()=>remove(ele.id)}>Buy Now</Button>
                         </StripeCheckout>
                       </td>
                     </tr>

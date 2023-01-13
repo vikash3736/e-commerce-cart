@@ -28,11 +28,6 @@ const Header = () => {
             <Navbar bg="primary" variant="dark" style={{ height: "10vh" }}>
                 <Container>
                     <NavLink to="/" className="text-decoration-none text-light mx-3" style={{fontSize:"26px",fontWeight:"bold"}}>E-Comm</NavLink>
-                    {/* <Nav className="me-auto">
-                        <NavLink to="/" className="text-decoration-none text-light mx-3">Home</NavLink>
-                        <NavLink to="/cart" className="text-decoration-none text-light mx-3">Cart Details</NavLink>
-                        <NavLink to="/addtocart" className="text-decoration-none text-light mx-3">Add To Cart</NavLink>
-                    </Nav> */}
                     <Badge badgeContent={getdata.length} color="warning"
                         id="basic-button"
                         aria-controls={open ? 'basic-menu' : undefined}
@@ -54,7 +49,7 @@ const Header = () => {
 
                     {
                         getdata.length ? 
-                        <div style={{width:"8vw"}} className="text-center">
+                        <div style={{width:"20vw"}} className="text-center">
                             <NavLink to='/addtocart' onClick={handleClose}>
                                 <Button variant="outline-primary">View Cart</Button>
                             </NavLink>
